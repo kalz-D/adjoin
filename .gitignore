@@ -1,0 +1,18 @@
+# Netlify
+.netlify/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+
+# Dropbox conflict files
+*conflicted copy*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node (not used, but just in case)
+node_modules/
