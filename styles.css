@@ -29,6 +29,9 @@
   --radius: 2px;
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Cohesive grade applied to every photo so mixed stock reads as one set */
+  --photo-grade: saturate(0.9) contrast(1.04) brightness(1.01);
 }
 
 /* ---------- Reset ---------- */
@@ -572,6 +575,91 @@ body.menu-open .menu-toggle span:last-child { transform: translateY(-3.25px) rot
   font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.5);
 }
 
+/* ---------- Hero photo gallery ---------- */
+.hero-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-self: center; }
+.hg-item {
+  position: relative; margin: 0; overflow: hidden;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--stone);
+}
+.hg-item.hg-wide { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+.hg-item:not(.hg-wide) { aspect-ratio: 1 / 1; }
+.hg-item img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: var(--photo-grade);
+  animation: kenburns 24s var(--ease) infinite alternate;
+}
+.hg-item:nth-child(2) img { animation-delay: -8s; }
+.hg-item:nth-child(3) img { animation-delay: -16s; }
+.hg-item:hover img { animation-play-state: paused; }
+@keyframes kenburns { from { transform: scale(1.001); } to { transform: scale(1.07); } }
+.hg-item figcaption {
+  position: absolute; inset: auto 0 0 0; padding: 12px 14px;
+  background: linear-gradient(to top, rgba(15,14,12,0.66), rgba(15,14,12,0));
+}
+.hg-label { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: #fff; }
+@media (max-width: 940px) { .hero-gallery { max-width: 540px; } }
+
+/* ---------- How we collaborate ---------- */
+.collab { background: var(--paper-warm); border-block: 1px solid var(--line); }
+.collab-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,0.92fr); gap: clamp(32px, 6vw, 84px); align-items: center; }
+@media (max-width: 860px) { .collab-grid { grid-template-columns: 1fr; gap: 36px; } .collab-visual { order: -1; } }
+.collab-photo { margin: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; aspect-ratio: 3 / 2; background: var(--stone); }
+.collab-photo img { width: 100%; height: 100%; object-fit: cover; filter: var(--photo-grade); }
+.collab-cap { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; color: var(--muted); text-align: right; margin-top: 12px; }
+.collab-steps { list-style: none; padding: 0; margin: 30px 0 0; }
+.collab-steps li { display: grid; grid-template-columns: auto 1fr; gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); align-items: start; }
+.collab-steps li:last-child { border-bottom: 1px solid var(--line); }
+.collab-steps .cs-key { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); padding-top: 3px; }
+.collab-steps h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.18rem; letter-spacing: -0.01em; margin-bottom: 4px; }
+.collab-steps p { color: var(--ink-soft); font-size: 0.97rem; max-width: 46ch; }
+
+/* ---------- Space planner tool ---------- */
+.tool { background: var(--ink); color: var(--paper); }
+.tool .section-title { color: var(--paper); }
+.planner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(24px, 4vw, 56px); margin-top: clamp(34px, 5vw, 58px); align-items: start; }
+@media (max-width: 900px) { .planner { grid-template-columns: 1fr; } }
+.planner-stage { border: 1px solid rgba(255,255,255,0.16); border-radius: var(--radius); padding: clamp(14px, 2vw, 20px); background: rgba(255,255,255,0.02); }
+.planner-head { display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+.plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+@media (max-width: 520px) { .plan-grid { grid-template-columns: repeat(2, 1fr); } }
+.plan-cell {
+  aspect-ratio: 1 / 1; border: 1px solid rgba(255,255,255,0.14); border-radius: 1px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  text-align: center; padding: 6px; position: relative;
+  transition: background .3s var(--ease), border-color .3s var(--ease);
+}
+.plan-cell.empty { border-style: dashed; color: rgba(255,255,255,0.25); }
+.plan-cell.empty::before { content: "+"; font-size: 1.15rem; }
+.plan-cell.filled { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.4); cursor: pointer; color: #fff; animation: cellpop .35s var(--ease); }
+.plan-cell.filled:hover { background: rgba(176,84,46,0.22); border-color: var(--accent-dark); }
+@keyframes cellpop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.pc-icon { display: inline-flex; width: 24px; height: 24px; color: #fff; }
+.pc-icon svg, .chip-ic svg { width: 100%; height: 100%; display: block; }
+.pc-name { font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.15; }
+.pc-remove { position: absolute; top: 2px; right: 6px; font-size: 0.78rem; color: rgba(255,255,255,0.45); }
+
+.chip-palette-label, .planner-side h3 { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+.chip-palette { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; padding: 9px 13px; border: 1px solid rgba(255,255,255,0.22); border-radius: 100px; background: transparent; color: #fff; font-size: 0.85rem; cursor: pointer; transition: background .25s var(--ease), border-color .25s var(--ease), opacity .25s; }
+.chip:hover:not(:disabled) { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+.chip-ic { display: inline-flex; width: 15px; height: 15px; color: var(--accent-dark); }
+.chip:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.planner-readout { margin-top: 26px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.14); }
+.readout-big { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.readout-num { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.4rem, 6vw, 3.4rem); letter-spacing: -0.03em; line-height: 1; }
+.readout-unit { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+.readout-sub { color: rgba(255,255,255,0.66); font-size: 0.94rem; margin-top: 10px; max-width: 36ch; }
+.compare { margin-top: 22px; display: grid; gap: 14px; }
+.cb-label { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.62); margin-bottom: 6px; }
+.cb-track { height: 10px; background: rgba(255,255,255,0.1); border-radius: 100px; overflow: hidden; }
+.cb-fill { height: 100%; border-radius: 100px; transition: width .5s var(--ease); }
+.cb-fill.solo { background: rgba(255,255,255,0.34); width: 100%; }
+.cb-fill.adjoin { background: var(--accent-dark); }
+.planner-note { font-family: var(--font-mono); font-size: 0.64rem; color: rgba(255,255,255,0.4); margin-top: 20px; line-height: 1.5; }
+.planner-reset { margin-top: 14px; background: transparent; border: 1px solid rgba(255,255,255,0.25); color: #fff; padding: 8px 15px; border-radius: 100px; font-size: 0.8rem; cursor: pointer; transition: background .25s var(--ease); }
+.planner-reset:hover { background: rgba(255,255,255,0.08); }
+
 /* ---------- Reveal animation (JS-gated: fully visible when JS is off/fails) ---------- */
 .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .reveal.in { opacity: 1; transform: none; }
@@ -584,4 +672,5 @@ body.menu-open .menu-toggle span:last-child { transform: translateY(-3.25px) rot
   .plan-lines .plan-dim { opacity: 1; }
   .plan-labels text, .plan-coord { opacity: 1; }
   .faq-list details p, .form-success { animation: none; }
+  .hg-item img, .plan-cell.filled { animation: none; }
 }

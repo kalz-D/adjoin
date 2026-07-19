@@ -187,3 +187,120 @@
     wrap.scrollIntoView({ behavior: rm ? "auto" : "smooth", block: "center" });
   }
 })();
+
+/* =========================================================
+   ADJOIN — space planner tool
+   ========================================================= */
+(function () {
+  "use strict";
+  var doc = document;
+  var grid = doc.getElementById("planGrid");
+  if (!grid) return;
+
+  var palette = doc.getElementById("chipPalette");
+  var countEl = doc.getElementById("plannerCount");
+  var perHeadEl = doc.getElementById("perHead");
+  var subEl = doc.getElementById("readoutSub");
+  var compareWrap = doc.getElementById("compareWrap");
+  var soloEl = doc.getElementById("soloCost");
+  var adjoinEl = doc.getElementById("adjoinCost");
+  var adjoinFill = doc.getElementById("adjoinFill");
+  var resetBtn = doc.getElementById("plannerReset");
+
+  var SHARED = 3600;   // illustrative monthly shared building cost
+  var SOLO = 4200;     // illustrative cost of taking a comparable unit alone
+  var MAX = 8;
+
+  var IC = {
+    scissors: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>',
+    dumbbell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6.5 6.5v11M17.5 6.5v11M4 9v6M20 9v6M6.5 12h11"/></svg>',
+    laptop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="1"/><path d="M2 20h20"/></svg>',
+    pot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8h10l-1 10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"/><path d="M6 8h12"/></svg>',
+    lotus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20c-4-2-7-5-7-9 3 0 5 2 7 5 2-3 4-5 7-5 0 4-3 7-7 9z"/></svg>',
+    camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13.5" r="3.2"/><path d="M8.5 7l1.2-2h4.6l1.2 2"/></svg>',
+    leaf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 6-14 14-14 0 8-6 14-14 14z"/><path d="M5 19c4-4 7-6 10-7"/></svg>'
+  };
+
+  var TRADES = [
+    { name: "Barber", zone: 450, icon: IC.scissors },
+    { name: "Hairdresser", zone: 450, icon: IC.scissors },
+    { name: "Trainer", zone: 500, icon: IC.dumbbell },
+    { name: "Developer", zone: 300, icon: IC.laptop },
+    { name: "Ceramicist", zone: 400, icon: IC.pot },
+    { name: "Therapist", zone: 400, icon: IC.lotus },
+    { name: "Photographer", zone: 400, icon: IC.camera },
+    { name: "Nutritionist", zone: 300, icon: IC.leaf }
+  ];
+
+  var added = [];
+
+  function fmt(n) { return "£" + Number(n).toLocaleString("en-GB"); }
+
+  function render() {
+    grid.innerHTML = "";
+    for (var i = 0; i < MAX; i++) {
+      var cell = doc.createElement("div");
+      if (i < added.length) {
+        var t = added[i];
+        cell.className = "plan-cell filled";
+        cell.innerHTML =
+          '<span class="pc-icon">' + t.icon + "</span>" +
+          '<span class="pc-name">' + t.name + "</span>" +
+          '<span class="pc-remove" aria-hidden="true">×</span>';
+        cell.setAttribute("role", "button");
+        cell.setAttribute("tabindex", "0");
+        cell.setAttribute("aria-label", "Remove " + t.name);
+        (function (idx) {
+          function remove() { added.splice(idx, 1); render(); }
+          cell.addEventListener("click", remove);
+          cell.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); remove(); }
+          });
+        })(i);
+      } else {
+        cell.className = "plan-cell empty";
+        cell.setAttribute("aria-hidden", "true");
+      }
+      grid.appendChild(cell);
+    }
+
+    countEl.textContent = added.length + " / " + MAX + " spaces";
+
+    var chips = palette.querySelectorAll(".chip");
+    for (var c = 0; c < chips.length; c++) chips[c].disabled = added.length >= MAX;
+
+    var n = added.length;
+    if (!n) {
+      perHeadEl.textContent = "£—";
+      subEl.textContent = "Add a business to start splitting the cost of the space.";
+      compareWrap.hidden = true;
+      return;
+    }
+    var zoneSum = 0;
+    added.forEach(function (t) { zoneSum += t.zone; });
+    var perHead = Math.round((zoneSum / n + SHARED / n) / 10) * 10;
+    perHeadEl.textContent = fmt(perHead);
+    subEl.textContent = n === 1
+      ? "One business carrying the whole space. Add neighbours to share the load."
+      : "Shared between " + n + " businesses — the fixed costs split " + n + " ways.";
+    compareWrap.hidden = false;
+    soloEl.textContent = fmt(SOLO);
+    adjoinEl.textContent = fmt(perHead);
+    adjoinFill.style.width = Math.max(6, Math.round((perHead / SOLO) * 100)) + "%";
+  }
+
+  TRADES.forEach(function (t) {
+    var b = doc.createElement("button");
+    b.type = "button";
+    b.className = "chip";
+    b.innerHTML = '<span class="chip-ic">' + t.icon + "</span>" + t.name;
+    b.addEventListener("click", function () {
+      if (added.length < MAX) { added.push(t); render(); }
+    });
+    palette.appendChild(b);
+  });
+
+  if (resetBtn) resetBtn.addEventListener("click", function () { added = []; render(); });
+
+  render();
+})();

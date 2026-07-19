@@ -48,9 +48,10 @@
       </a>
 
       <nav class="nav-desktop" aria-label="Primary">
-        <a href="#idea">The idea</a>
         <a href="#how">How it works</a>
         <a href="#mix">The mix</a>
+        <a href="#collaborate">Collaborate</a>
+        <a href="#tool">Design your space</a>
         <a href="#partners">For partners</a>
         <a href="#faq">FAQ</a>
       </nav>
@@ -67,11 +68,12 @@
   <!-- ============ MOBILE MENU ============ -->
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
     <nav class="mobile-nav" aria-label="Mobile">
-      <a href="#idea"><span class="idx">01</span> The idea</a>
-      <a href="#how"><span class="idx">02</span> How it works</a>
-      <a href="#mix"><span class="idx">03</span> The mix</a>
-      <a href="#partners"><span class="idx">04</span> For partners</a>
-      <a href="#faq"><span class="idx">05</span> FAQ</a>
+      <a href="#how"><span class="idx">01</span> How it works</a>
+      <a href="#mix"><span class="idx">02</span> The mix</a>
+      <a href="#collaborate"><span class="idx">03</span> Collaborate</a>
+      <a href="#tool"><span class="idx">04</span> Design your space</a>
+      <a href="#partners"><span class="idx">05</span> For partners</a>
+      <a href="#faq"><span class="idx">06</span> FAQ</a>
       <a href="#enquire" class="mobile-cta">Get in touch →</a>
     </nav>
     <div class="mobile-menu-foot">
@@ -108,52 +110,20 @@
           </ul>
         </div>
 
-        <figure class="hero-plan reveal" aria-label="Illustrative floor plan of a shared Adjoin space">
-          <svg class="plan-svg" viewBox="0 0 460 520" role="img" aria-label="A line-drawn floor plan divided into zones for different independent businesses sharing one space">
-            <g class="plan-lines" fill="none" stroke="currentColor">
-              <!-- outer shell -->
-              <rect x="20" y="20" width="420" height="480" stroke-width="2"/>
-              <!-- inner partitions -->
-              <line x1="20" y1="200" x2="260" y2="200" stroke-width="1"/>
-              <line x1="260" y1="20" x2="260" y2="330" stroke-width="1"/>
-              <line x1="260" y1="330" x2="440" y2="330" stroke-width="1"/>
-              <line x1="20" y1="360" x2="260" y2="360" stroke-width="1"/>
-              <line x1="150" y1="360" x2="150" y2="500" stroke-width="1"/>
-              <!-- door swings -->
-              <path d="M120 200 a24 24 0 0 1 24 24" stroke-width="1"/>
-              <path d="M260 150 a24 24 0 0 1 -24 24" stroke-width="1"/>
-              <path d="M150 430 a20 20 0 0 1 20 20" stroke-width="1"/>
-              <!-- dimension ticks -->
-              <line x1="20" y1="8" x2="20" y2="14" stroke-width="1"/>
-              <line x1="440" y1="8" x2="440" y2="14" stroke-width="1"/>
-              <line class="plan-dim" x1="20" y1="11" x2="440" y2="11" stroke-width="0.75"/>
-            </g>
-            <g class="plan-labels">
-              <text x="40" y="110" class="plan-tag">CHAIR &amp; COLOUR</text>
-              <text x="40" y="128" class="plan-sub">hairdresser</text>
-
-              <text x="300" y="90" class="plan-tag">STUDIO</text>
-              <text x="300" y="108" class="plan-sub">maker / creative</text>
-
-              <text x="40" y="285" class="plan-tag">TREATMENT</text>
-              <text x="40" y="303" class="plan-sub">therapist</text>
-
-              <text x="300" y="240" class="plan-tag">DESK</text>
-              <text x="300" y="258" class="plan-sub">developer</text>
-
-              <text x="40" y="440" class="plan-tag">MOVE</text>
-              <text x="40" y="458" class="plan-sub">trainer</text>
-
-              <text x="175" y="440" class="plan-tag">SHARED</text>
-              <text x="175" y="458" class="plan-sub">kitchen · WC · Wi-Fi</text>
-
-              <text x="300" y="420" class="plan-tag">WELCOME</text>
-              <text x="300" y="438" class="plan-sub">front-of-house</text>
-            </g>
-            <text x="440" y="512" text-anchor="end" class="plan-coord">ADJOIN · UNIT 01 · SCALE 1:100</text>
-          </svg>
-          <figcaption class="plan-cap">One roof, drawn for many. Illustrative.</figcaption>
-        </figure>
+        <div class="hero-gallery reveal" aria-label="Independent businesses at work in Adjoin spaces">
+          <figure class="hg-item hg-wide">
+            <img src="/assets/photos/desk.jpg" width="1200" height="800" alt="An independent working at a laptop in a bright Adjoin desk space" loading="eager" />
+            <figcaption><span class="hg-label">At the desk</span></figcaption>
+          </figure>
+          <figure class="hg-item">
+            <img src="/assets/photos/barber.jpg" width="1200" height="800" alt="A barber cutting a client&rsquo;s hair in a shared Adjoin space" loading="lazy" />
+            <figcaption><span class="hg-label">In the chair</span></figcaption>
+          </figure>
+          <figure class="hg-item">
+            <img src="/assets/photos/fitness.jpg" width="1200" height="800" alt="A personal trainer coaching a client in an Adjoin studio" loading="lazy" />
+            <figcaption><span class="hg-label">On the floor</span></figcaption>
+          </figure>
+        </div>
       </div>
       <div class="hero-scroll" aria-hidden="true"><span>Scroll</span></div>
     </section>
@@ -286,6 +256,97 @@
             <li>Creative studios</li>
             <li>Desk-based independents</li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW WE COLLABORATE ============ -->
+    <section class="section collab" id="collaborate" aria-labelledby="collab-title">
+      <div class="wrap collab-grid">
+        <div class="collab-copy">
+          <p class="kicker reveal"><span class="kdot"></span>How we collaborate</p>
+          <h2 class="section-title reveal" id="collab-title">We bring people together — and hand them the tools.</h2>
+          <p class="lead reveal">
+            Adjoin isn&rsquo;t a landlord. We&rsquo;re the connective tissue: we find the building,
+            gather a complementary group of independents, and give you everything you need to
+            shape it into a space you&rsquo;re proud of. You bring the craft and the community — we
+            make it easy to create something great, together.
+          </p>
+          <ul class="collab-steps reveal">
+            <li>
+              <span class="cs-key">We convene</span>
+              <div>
+                <h3>The right people, one roof</h3>
+                <p>We hand-pick a mix of businesses that lift each other up, and introduce you before you ever move in.</p>
+              </div>
+            </li>
+            <li>
+              <span class="cs-key">We equip</span>
+              <div>
+                <h3>Tools to design your space</h3>
+                <p>Plan your zone, shape the shared areas and split the costs — with our team, a simple space planner and a shared toolkit behind you.</p>
+              </div>
+            </li>
+            <li>
+              <span class="cs-key">You create</span>
+              <div>
+                <h3>A space that&rsquo;s yours</h3>
+                <p>Make it your own, open your doors, and grow alongside neighbours who send business your way.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="collab-visual reveal">
+          <figure class="collab-photo">
+            <img src="/assets/photos/collaborate.jpg" width="1280" height="854" alt="Two independents collaborating over a laptop in a shared Adjoin space" loading="lazy" />
+          </figure>
+          <p class="collab-cap">Better together — Adjoin, in practice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DESIGN YOUR SPACE (TOOL) ============ -->
+    <section class="section tool" id="tool" aria-labelledby="tool-title">
+      <div class="wrap">
+        <p class="kicker light reveal"><span class="kdot"></span>Design your space</p>
+        <h2 class="section-title light reveal" id="tool-title">Build your space. Watch the cost fall.</h2>
+        <p class="lead light reveal">
+          Add the businesses you&rsquo;d share with and see the space — and the monthly cost —
+          take shape. The more of you there are, the less each one carries.
+        </p>
+
+        <div class="planner reveal">
+          <div class="planner-stage">
+            <div class="planner-head"><span>Unit 01 · shared floor</span><span id="plannerCount">0 / 8 spaces</span></div>
+            <div class="plan-grid" id="planGrid" aria-live="polite"></div>
+          </div>
+
+          <div class="planner-side">
+            <h3 class="chip-palette-label">Add a business</h3>
+            <div class="chip-palette" id="chipPalette"></div>
+
+            <div class="planner-readout">
+              <div class="readout-big">
+                <span class="readout-num" id="perHead">£—</span>
+                <span class="readout-unit">/ business / month*</span>
+              </div>
+              <p class="readout-sub" id="readoutSub">Add a business to start splitting the cost of the space.</p>
+
+              <div class="compare" id="compareWrap" hidden>
+                <div>
+                  <div class="cb-label"><span>On your own</span><span id="soloCost">£—</span></div>
+                  <div class="cb-track"><div class="cb-fill solo"></div></div>
+                </div>
+                <div>
+                  <div class="cb-label"><span>Sharing with Adjoin</span><span id="adjoinCost">£—</span></div>
+                  <div class="cb-track"><div class="cb-fill adjoin" id="adjoinFill" style="width:0%"></div></div>
+                </div>
+              </div>
+
+              <button type="button" class="planner-reset" id="plannerReset">Reset</button>
+              <p class="planner-note">*Illustrative only, to show how sharing works — not a quote. Real figures depend on the space, your zone and its location.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
