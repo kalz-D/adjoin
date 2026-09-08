@@ -108,6 +108,13 @@
     partner:  { title: "Ready to fill your space?",      submit: "Start the conversation →" }
   };
 
+  var setFieldRequired = function (id, on) {
+    var el = doc.getElementById(id);
+    if (!el) return;
+    if (on) el.setAttribute("required", "");
+    else el.removeAttribute("required");
+  };
+
   var setRole = function (role) {
     if (!COPY[role]) return;
     if (roleField) roleField.value = role;
@@ -122,8 +129,11 @@
       if (show) fs.removeAttribute("hidden");
       else fs.setAttribute("hidden", "");
     });
+    setFieldRequired("business", role === "business");
+    setFieldRequired("area", role === "business");
+    setFieldRequired("location", role === "partner");
     if (enquireTitle) enquireTitle.textContent = COPY[role].title;
-    if (submitBtn) submitBtn.textContent = COPY[role].submit;
+    if (submitBtn && !submitBtn.disabled) submitBtn.textContent = COPY[role].submit;
   };
 
   roleBtns.forEach(function (b) {
@@ -138,18 +148,64 @@
     });
   });
 
-  /* Sync initial state (business is the default) */
-  if (roleBtns.length) setRole("business");
+  /* ---- Active section in desktop nav ---- */
+  var navLinks = Array.prototype.slice.call(doc.querySelectorAll(".nav-desktop a[href^='#']"));
+  var sectionIds = navLinks.map(function (a) { return a.getAttribute("href").slice(1); }).filter(Boolean);
+  var sections = sectionIds.map(function (id) { return doc.getElementById(id); }).filter(Boolean);
+  if (navLinks.length && "IntersectionObserver" in window) {
+    var currentId = "";
+    var spy = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) currentId = entry.target.id;
+        });
+        navLinks.forEach(function (a) {
+          var on = a.getAttribute("href") === "#" + currentId;
+          if (on) a.setAttribute("aria-current", "true");
+          else a.removeAttribute("aria-current");
+        });
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: 0.01 }
+    );
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+
+  /* Sync initial state from CTA, query string, or default */
+  var params = new URLSearchParams(window.location.search);
+  var initialRole = params.get("role");
+  if (initialRole !== "business" && initialRole !== "partner") {
+    initialRole = "business";
+  }
+  if (roleBtns.length) setRole(initialRole);
 
   /* ---- Netlify form: progressive AJAX submit with inline success ---- */
   var form = doc.getElementById("enquiryForm");
+  var formError = doc.getElementById("formError");
+  var showFormError = function (msg) {
+    if (!formError) return;
+    formError.textContent = msg;
+    formError.classList.add("is-visible");
+  };
+  var hideFormError = function () {
+    if (!formError) return;
+    formError.textContent = "";
+    formError.classList.remove("is-visible");
+  };
+
   if (form) {
     form.addEventListener("submit", function (e) {
+      hideFormError();
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        form.reportValidity();
+        return;
+      }
       // If fetch isn't available, let the native POST (action="/success.html") run.
       if (typeof window.fetch !== "function") return;
 
       e.preventDefault();
       var btn = doc.getElementById("submitBtn");
+      var role = roleField ? roleField.value : "business";
       if (btn) { btn.disabled = true; btn.textContent = "Sending…"; }
 
       var data = new FormData(form);
@@ -165,8 +221,11 @@
           renderSuccess();
         })
         .catch(function () {
-          // Fall back to the native navigation on error.
-          form.submit();
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = COPY[role] ? COPY[role].submit : "Send enquiry →";
+          }
+          showFormError("Something went wrong sending that. Try again, or email connect@careinmovement.com.");
         });
     });
   }
@@ -302,5 +361,6 @@
 
   if (resetBtn) resetBtn.addEventListener("click", function () { added = []; render(); });
 
+  added = [TRADES[0], TRADES[2], TRADES[3]];
   render();
 })();

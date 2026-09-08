@@ -9,6 +9,7 @@
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
   <link rel="canonical" href="https://adjoin.netlify.app/" />
+  <link rel="preload" as="image" href="/assets/photos/desk.jpg" fetchpriority="high" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -32,6 +33,53 @@
   <!-- Mark that JS is available; scroll-reveal is gated on this so content is fully visible without JS -->
   <script>document.documentElement.classList.add('js');</script>
   <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://adjoin.netlify.app/#org",
+        "name": "Adjoin",
+        "url": "https://adjoin.netlify.app/",
+        "email": "connect@careinmovement.com",
+        "description": "Beautifully designed commercial spaces shared by a curated group of complementary independent businesses.",
+        "logo": "https://adjoin.netlify.app/assets/og.png"
+      },
+      {
+        "@type": "WebSite",
+        "name": "Adjoin",
+        "url": "https://adjoin.netlify.app/",
+        "publisher": { "@id": "https://adjoin.netlify.app/#org" }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do the costs actually work?",
+            "acceptedAnswer": { "@type": "Answer", "text": "You pay one transparent monthly fee for your zone, covering your share of rent, business rates, utilities, Wi-Fi, cleaning and the shared spaces. The figure scales with the size of your zone and its location." }
+          },
+          {
+            "@type": "Question",
+            "name": "Am I tied into a long lease?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Adjoin runs on flexible, rolling terms designed for independent businesses. You can scale up, scale down, or move on with proper notice." }
+          },
+          {
+            "@type": "Question",
+            "name": "Who else will be in my space?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A small, curated and complementary mix. Directly competing businesses are never placed side by side." }
+          },
+          {
+            "@type": "Question",
+            "name": "Which locations are you in?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Spaces are being developed now. Register your interest with a preferred area and we will match you as sites come together." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -106,21 +154,21 @@
           <ul class="hero-meta reveal" aria-label="At a glance">
             <li><span class="hm-num">0</span> long leases</li>
             <li><span class="hm-num">1</span> simple monthly bill</li>
-            <li><span class="hm-num">∞</span> good company</li>
+            <li><span class="hm-num" aria-label="Unlimited">∞</span> good company</li>
           </ul>
         </div>
 
         <div class="hero-gallery reveal" aria-label="Independent businesses at work in Adjoin spaces">
           <figure class="hg-item hg-wide">
-            <img src="/assets/photos/desk.jpg" width="1200" height="800" alt="An independent working at a laptop in a bright Adjoin desk space" loading="eager" />
+            <img src="/assets/photos/desk.jpg" width="1200" height="800" alt="An independent working at a laptop in a bright Adjoin desk space" loading="eager" fetchpriority="high" decoding="async" />
             <figcaption><span class="hg-label">At the desk</span></figcaption>
           </figure>
           <figure class="hg-item">
-            <img src="/assets/photos/barber.jpg" width="1200" height="800" alt="A barber cutting a client&rsquo;s hair in a shared Adjoin space" loading="lazy" />
+            <img src="/assets/photos/barber.jpg" width="1200" height="800" alt="A barber cutting a client&rsquo;s hair in a shared Adjoin space" loading="lazy" decoding="async" />
             <figcaption><span class="hg-label">In the chair</span></figcaption>
           </figure>
           <figure class="hg-item">
-            <img src="/assets/photos/fitness.jpg" width="1200" height="800" alt="A personal trainer coaching a client in an Adjoin studio" loading="lazy" />
+            <img src="/assets/photos/fitness.jpg" width="1200" height="800" alt="A personal trainer coaching a client in an Adjoin studio" loading="lazy" decoding="async" />
             <figcaption><span class="hg-label">On the floor</span></figcaption>
           </figure>
         </div>
@@ -298,7 +346,7 @@
         </div>
         <div class="collab-visual reveal">
           <figure class="collab-photo">
-            <img src="/assets/photos/collaborate.jpg" width="1280" height="854" alt="Two independents collaborating over a laptop in a shared Adjoin space" loading="lazy" />
+            <img src="/assets/photos/collaborate.jpg" width="1280" height="854" alt="Two independents collaborating over a laptop in a shared Adjoin space" loading="lazy" decoding="async" />
           </figure>
           <p class="collab-cap">Better together — Adjoin, in practice.</p>
         </div>
@@ -317,20 +365,20 @@
 
         <div class="planner reveal">
           <div class="planner-stage">
-            <div class="planner-head"><span>Unit 01 · shared floor</span><span id="plannerCount">0 / 8 spaces</span></div>
-            <div class="plan-grid" id="planGrid" aria-live="polite"></div>
+            <div class="planner-head"><span>Unit 01 · shared floor</span><span id="plannerCount">3 / 8 spaces</span></div>
+            <div class="plan-grid" id="planGrid"></div>
           </div>
 
           <div class="planner-side">
             <h3 class="chip-palette-label">Add a business</h3>
             <div class="chip-palette" id="chipPalette"></div>
 
-            <div class="planner-readout">
+            <div class="planner-readout" aria-live="polite">
               <div class="readout-big">
                 <span class="readout-num" id="perHead">£—</span>
                 <span class="readout-unit">/ business / month*</span>
               </div>
-              <p class="readout-sub" id="readoutSub">Add a business to start splitting the cost of the space.</p>
+              <p class="readout-sub" id="readoutSub">A starter mix of three neighbours — add more to watch the cost fall.</p>
 
               <div class="compare" id="compareWrap" hidden>
                 <div>
@@ -513,6 +561,7 @@
             <p class="hp-field" aria-hidden="true">
               <label>Don&rsquo;t fill this in if you&rsquo;re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
             </p>
+            <p class="form-error" id="formError" role="alert"></p>
 
             <div class="field">
               <label for="name">Name</label>
@@ -534,16 +583,16 @@
             <div class="role-fields" data-fields="business">
               <div class="field">
                 <label for="business">Type of business</label>
-                <input type="text" id="business" name="business" placeholder="e.g. hairdresser, PT, ceramicist, developer" />
+                <input type="text" id="business" name="business" required placeholder="e.g. hairdresser, PT, ceramicist, developer" />
               </div>
               <div class="field">
                 <label for="area">Preferred area</label>
-                <input type="text" id="area" name="area" placeholder="Town, city or postcode" />
+                <input type="text" id="area" name="area" required placeholder="Town, city or postcode" />
               </div>
             </div>
 
             <!-- Partner-only fields -->
-            <div class="role-fields is-hidden" data-fields="partner">
+            <div class="role-fields is-hidden" data-fields="partner" hidden>
               <div class="field">
                 <label for="location">Property location</label>
                 <input type="text" id="location" name="location" placeholder="Address, town or postcode" />
@@ -560,7 +609,7 @@
             </div>
 
             <button type="submit" class="btn btn-solid btn-block" id="submitBtn">Send enquiry →</button>
-            <p class="form-note">We&rsquo;ll only use your details to reply. No spam, ever.</p>
+            <p class="form-note">We&rsquo;ll only use your details to reply. Read how in our <a href="/privacy.html">privacy note</a>.</p>
           </form>
         </div>
       </div>
@@ -586,6 +635,7 @@
         <a href="#idea">The idea</a>
         <a href="#how">How it works</a>
         <a href="#mix">The mix</a>
+        <a href="#tool">Design your space</a>
         <a href="#partners">For partners</a>
         <a href="#faq">FAQ</a>
       </nav>
@@ -597,7 +647,7 @@
       </div>
     </div>
     <div class="wrap footer-base">
-      <span>© <span id="year">2026</span> Adjoin</span>
+      <span>© <span id="year">2026</span> Adjoin · <a href="/privacy.html">Privacy</a></span>
       <span class="footer-base-coord">SHARED SPACE · MADE FOR INDEPENDENTS</span>
     </div>
   </footer>
