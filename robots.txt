@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /success.html
-Disallow: /privacy.html
 
 Sitemap: https://adjoin.netlify.app/sitemap.xml

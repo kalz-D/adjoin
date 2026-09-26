@@ -1,95 +1,51 @@
 # Adjoin
 
-Marketing site for **Adjoin** — beautifully designed commercial spaces shared by a
-curated group of complementary independent businesses. *Your space, without the whole lease.*
+Marketing and demand-testing site for **Adjoin**: shared industrial space in Newcastle and the Hunter.
+*Big unit. Small business. Share it.*
 
-Two audiences are served: **independent businesses** looking for a home, and
-**space partners / landlords** with underused commercial space to fill.
+Static HTML, CSS and vanilla JS. No build step. Hosted on Netlify, enquiries via Netlify Forms.
+See `PRODUCT.md` for positioning, voice and the visual system.
 
----
-
-## Stack
-
-- **Plain static site** — HTML, CSS and vanilla JavaScript. No build step, no dependencies.
-- **Fonts:** Archivo (display), Inter (body), Space Mono (labels) via Google Fonts.
-- **Hosting:** Netlify. **Forms:** Netlify Forms (no backend required).
-
-Design direction: *Architectural Minimal* — white / graphite / stone, tight grotesk
-typography, strict grid, hairline rules, a signature line-drawn floor plan.
-
----
-
-## Project structure
+## Structure
 
 ```
-.
-├── index.html        # the whole site (single page, anchored sections)
-├── styles.css        # design system + all styles
-├── main.js           # nav, scroll reveals, business/partner toggle, form submit
-├── success.html      # form thank-you page (no-JS fallback)
-├── 404.html          # branded not-found page
-├── assets/
-│   └── favicon.svg    # brand mark / favicon
-├── netlify.toml      # Netlify config + security headers
-├── robots.txt
-└── sitemap.xml
+index.html     single page: hero + lease splitter, problem, how it works, the space,
+               who it's for, founding members, landlords, FAQ, enquiry form
+styles.css     design tokens (:root) and all styles
+main.js        nav, lease splitter, business/landlord form toggle, AJAX form submit
+success.html   no-JS form thank-you page
+404.html       not-found page
+privacy.html   privacy note (Australian Privacy Principles)
+assets/        favicon, OG image, touch icon, photos
+netlify.toml   headers incl. Content-Security-Policy
 ```
 
 ## Run locally
 
-It's a static site, so any static server works:
-
 ```bash
 npx serve .
 # or
-python -m http.server 8000
+python3 -m http.server 8000
 ```
 
-Then open the printed URL. (Netlify Forms only capture submissions on the deployed
-Netlify site, not locally.)
+Netlify Forms only capture submissions on the deployed site.
 
 ## Deploy
 
-Continuous deploy is wired to this GitHub repo. **Every push to `main` redeploys.**
-
-```bash
-git add -A
-git commit -m "Update copy"
-git push
-```
-
-Manual deploy (from the Netlify CLI, if ever needed):
-
-```bash
-netlify deploy --prod --dir .
-```
+Every push to `main` redeploys on Netlify.
 
 ## Enquiry form
 
-The contact form uses **Netlify Forms**. Submissions appear in the Netlify dashboard
-under **Forms → enquiry**. To get emailed on each submission, add a notification in
-Netlify: *Site settings → Forms → Form notifications → Add notification → Email*.
+Submissions land in Netlify under **Forms → enquiry**. A hidden `role` field records `business` or `partner`.
+Business enquiries capture trade, suburb, space size, needs (`needs[]`), group size and optional budget,
+which is your demand-testing data. Export it from Netlify as CSV to see where demand is clustering.
+Add an email notification under *Site settings → Forms → Form notifications*.
 
-A `role` hidden field records whether the enquiry is from a *business* or a
-*space partner*, alongside the fields relevant to each.
+## To do before launch
 
-## Editing content
-
-Nearly all copy lives in `index.html` as plain text — edit in place. Colours,
-type and spacing are CSS custom properties at the top of `styles.css` (`:root`).
-
-## When you add a custom domain
-
-A few values are hard-coded to the default `adjoin.netlify.app` subdomain and
-should be updated to the real domain at cutover:
-
-- `index.html` — the `<link rel="canonical">`, `og:url`, `og:image` and `twitter:image` URLs
-- `sitemap.xml` — the `<loc>`
-- `robots.txt` — the `Sitemap:` line
-
-The social-share image lives at `assets/og.png` (1200×630). To refresh it, edit
-`assets/og.svg`-style artwork or regenerate a 1200×630 PNG and replace the file.
-
----
-
-© Adjoin. Contact: connect@careinmovement.com
+- **Email:** `hello@adjoin.com.au` is a placeholder. Search and replace across `index.html`,
+  `main.js`, `privacy.html` and `success.html` once the domain and inbox exist.
+- **Domain:** swap `adjoin.netlify.app` in `index.html` (canonical, og:url, og:image, twitter:image,
+  JSON-LD), `privacy.html`, `sitemap.xml` and `robots.txt`.
+- **Photos:** `assets/photos/` holds stock images, labelled on the page as illustrative. Replace with
+  real site and member photos as soon as you have them, keeping the same file names and a 3:2 ratio.
