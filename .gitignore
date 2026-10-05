@@ -1,5 +1,6 @@
 # Netlify
 .netlify/
+deno.lock
 
 # OS / editor
 .DS_Store
@@ -14,5 +15,10 @@ desktop.ini
 *.log
 npm-debug.log*
 
-# Node (not used, but just in case)
+# Node
 node_modules/
+
+# Local environment (admin emails, test settings)
+.env
+.env.*
+!.env.example

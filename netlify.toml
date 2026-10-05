@@ -1,9 +1,17 @@
 # Netlify configuration — Adjoin
-# Static site, no build step required.
+# Static site in /public, plus one API function for the members area.
 
 [build]
-  publish = "."
+  publish = "public"
   command = ""
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+[dev]
+  publish = "public"
+  port = 8888
 
 # Security + performance headers
 [[headers]]
@@ -14,20 +22,26 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), camera=(), microphone=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
 
-# Long-cache static assets (immutable-ish); tweak as needed
+# The members area is private: keep it out of search engines.
+[[headers]]
+  for = "/members/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=604800"
 
+# Unversioned CSS/JS must revalidate, or a redesign can pair new HTML with old styles.
 [[headers]]
-  for = "/styles.css"
+  for = "/*.css"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
-  for = "/main.js"
+  for = "/*.js"
   [headers.values]
-    Cache-Control = "public, max-age=86400"
+    Cache-Control = "public, max-age=0, must-revalidate"

@@ -18,9 +18,19 @@ Stage: pre-launch demand testing. No live sites yet. The site must never imply t
 4. Companies wanting desks for Hunter-based remote staff.
 5. Landlords of industrial units (dedicated section, secondary audience).
 
+Groups are formed by how people work, never mixed across these three:
+- Studios and desks: creatives, tech, brokers, bookkeepers, remote staff. Compact units.
+- Boutique services: barbers, personal trainers, jewellers, beauty and wellness. Mid-size units.
+- Workshops and trades: woodwork, fabrication, sign writing, repairs. Large units.
+A mortgage broker who wants a quiet desk is never grouped with a joinery.
+
 ## Core message
 
-Industrial units are sized for fleets, not freelancers. Share one. The market problems are too big, too pricey, too long and too quiet; Adjoin fixes all four.
+Tagline (beside the logo): "Collaborative spaces." Hero cycles three headlines on a timer: "Big unit. Small business. Share it." / "Bigger space. Lower rent. Better company." / "Good neighbours are good for business." Statement band: "Share the building. Not the business." Adjoin develops beautifully designed commercial spaces that a small, curated group of complementary independents share, so you get a real home for your business without carrying the cost, the risk or the loneliness of going it alone.
+
+Not every business needs a whole unit, and not every unit is a warehouse; buildings can be big or small. The market problems are too big, too pricey, too long and too quiet; Adjoin fixes all four.
+
+Shared areas (kitchen, lounge) are a hint, not a promise: each group decides what it needs.
 
 Process: tell us what you need, co-design your section, meet your people, move in. Every placement starts with a three-month trial.
 
@@ -34,11 +44,16 @@ Australian English. Polished and architectural in structure, warm and optimistic
 
 ## Visual system
 
-Hard vs soft. Industrial elements (plans, steps, rules) are square-edged; human elements (buttons, cards, the lounge, photos) are rounded.
-Energy: charcoal #232427 + signal orange #FF5F1F. Calm: eucalypt #2E4A3E / #6F8F7D, sandstone #E6CFA8 / #F2E7D4, off-white #F5F4F0.
-Type: Bricolage Grotesque (display, uses its width axis for rhythm) + Instrument Sans (body).
-Signature: the lease splitter in the hero. Keep other motion minimal.
-Imagery: architectural line drawings plus atmospheric photos, always labelled as illustrative until real sites exist.
+Hard vs soft. Industrial elements (plans, steps, rules) are square-edged; human elements (buttons, tags, photos) are rounded.
+Colour is restrained: white #FFFFFF, ink #111111, light stone #F4F4F2 for alternate sections, warm grey lines. Signal orange #FF5F1F appears only as the square: the logo's centre, the full stop in the headline, small markers and the "You" outline in the plan. No other accent colours.
+Type: Archivo throughout. Headings at medium weight (500) with tight tracking, body at 400, small headings at 600. No heavy weights or condensed widths; it should read premium and serious, like an architecture practice, not a startup.
+Signature: the hero collage (small businesses overlapping inside one building outline) and the abstract lease plan, where sections vary in size, overlap and reshuffle. Spaces bleed into each other; never draw them as equal, strictly segmented boxes.
+Motion: the hero assembles once on load; sections reveal in ways that suit their content; the plan morphs between layouts. All of it switches off under reduced motion.
+Imagery: atmospheric photos plus architectural line drawings, always labelled as illustrative until real sites exist.
+
+## Members area
+
+A private, curated portal, not a directory. Members make a profile (big hero photo, headline, about, what they're looking for) and see their circle: at most five businesses at a time in their kind of work, each as a full-bleed photo with a white card. Profiles are approved by Adjoin before anyone else sees them. Contact happens through Adjoin introductions, never by publishing emails.
 
 ## Accessibility
 

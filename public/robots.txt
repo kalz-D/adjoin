@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /members/
+Disallow: /api/
 
 Sitemap: https://adjoin.netlify.app/sitemap.xml
